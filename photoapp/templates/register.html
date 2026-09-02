@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block title %}Register | Photo Gallery{% endblock %}
+
+{% block content %}
+
+<div class="min-h-screen flex items-center justify-center px-6">
+
+    <div class="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
+
+        <h1 class="text-3xl font-bold text-center">
+            Create an Account
+        </h1>
+
+        <p class="text-gray-600 text-center mt-2">
+            Join PhotoGallery
+        </p>
+
+        <form method="POST" class="mt-8">
+
+            {% csrf_token %}
+
+            <div class="mb-4">
+                <label class="block mb-2 font-medium">
+                    Username
+                </label>
+
+                <input type="text"
+                       name="username"
+                       required
+                       class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+            </div>
+
+            <div class="mb-4">
+                <label class="block mb-2 font-medium">
+                    Email
+                </label>
+
+                <input type="email"
+                       name="email"
+                       required
+                       class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+            </div>
+
+            <div class="mb-4">
+                <label class="block mb-2 font-medium">
+                    Password
+                </label>
+
+                <input type="password"
+                       name="password"
+                       required
+                       class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+            </div>
+
+            <div class="mb-6">
+                <label class="block mb-2 font-medium">
+                    Confirm Password
+                </label>
+
+                <input type="password"
+                       name="password2"
+                       required
+                       class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+            </div>
+
+            <button type="submit"
+                    class="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-lg font-semibold">
+                Create Account
+            </button>
+
+        </form>
+
+        <p class="text-center text-gray-600 mt-6">
+            Already have an account?
+            <a href="#" class="text-purple-600 font-semibold">
+                Login
+            </a>
+        </p>
+
+    </div>
+
+</div>
+
+{% endblock %}
