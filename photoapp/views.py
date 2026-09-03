@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
+from .models import Profile
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -37,6 +39,7 @@ def register(request):
             email=email,
             password=password
         )
+        Profile.objects.create(user=user)
 
         # Show success message
         return render(request, 'register.html', {
@@ -72,3 +75,11 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect('login')
+
+@login_required
+def profile(request):
+    profile = Profile.objects.get(user=request.user)
+
+    return render(request, 'profile.html', {
+        'profile': profile
+    })
