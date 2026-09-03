@@ -4,6 +4,19 @@
 
 {% block content %}
 
+{% if success %}
+    <div id="success-message"
+         class="bg-green-100 text-green-700 px-4 py-3 rounded-lg mb-6 text-center">
+        Account created successfully!
+    </div>
+
+    <script>
+        setTimeout(function() {
+            window.location.href = "{% url 'login' %}";
+        }, 3000);
+    </script>
+{% endif %}
+
 <div class="min-h-screen flex items-center justify-center px-6">
 
     <div class="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
