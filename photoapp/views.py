@@ -83,3 +83,21 @@ def profile(request):
     return render(request, 'profile.html', {
         'profile': profile
     })
+
+@login_required
+def edit_profile(request):
+    profile = Profile.objects.get(user=request.user)
+
+    if request.method == 'POST':
+        request.user.email = request.POST.get('email')
+        request.user.username = request.POST.get('username')
+        profile.bio = request.POST.get('bio')
+
+        request.user.save()
+        profile.save()
+
+        return redirect('profile')
+
+    return render(request, 'edit_profile.html', {
+        'profile': profile
+    })
