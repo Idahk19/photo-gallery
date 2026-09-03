@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %}My Profile | Photo Gallery{% endblock %}
+
+{% block content %}
+
+<div class="min-h-screen bg-gray-100 py-12 px-6">
+
+    <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-md p-8">
+
+        <h1 class="text-3xl font-bold text-center mb-8">
+            My Profile
+        </h1>
+
+        <div class="flex justify-center mb-6">
+
+            {% if profile.profile_picture %}
+                <img src="{{ profile.profile_picture.url }}"
+                     alt="Profile Picture"
+                     class="w-32 h-32 rounded-full object-cover">
+            {% else %}
+                <div class="w-32 h-32 rounded-full bg-gray-200 flex items-center justify-center">
+                    <span class="text-gray-500">
+                        No Photo
+                    </span>
+                </div>
+            {% endif %}
+
+        </div>
+
+        <div class="mb-4">
+            <h2 class="text-sm text-gray-500">
+                Username
+            </h2>
+
+            <p class="text-lg font-semibold">
+                {{ user.username }}
+            </p>
+        </div>
+
+        <div class="mb-4">
+            <h2 class="text-sm text-gray-500">
+                Email
+            </h2>
+
+            <p class="text-lg font-semibold">
+                {{ user.email }}
+            </p>
+        </div>
+
+        <div class="mb-6">
+            <h2 class="text-sm text-gray-500">
+                Bio
+            </h2>
+
+            <p class="text-lg">
+                {% if profile.bio %}
+                    {{ profile.bio }}
+                {% else %}
+                    No bio added yet.
+                {% endif %}
+            </p>
+        </div>
+
+        <div class="text-center">
+            <a href="#"
+               class="inline-block bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-lg font-semibold">
+                Edit Profile
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
