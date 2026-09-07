@@ -16,12 +16,13 @@
 
         <div class="bg-white rounded-lg shadow p-4">
 
-            <img
-                src="{{ photo.image.url }}"
-                alt="{{ photo.title }}"
-                class="w-full h-48 object-cover rounded"
-            >
-
+            <a href="{% url 'photo_detail' photo.id %}">
+    <img
+        src="{{ photo.image.url }}"
+        alt="{{ photo.title }}"
+        class="w-full h-48 object-cover rounded"
+    >
+</a>
             <h3 class="font-semibold text-lg mt-4">
                 {{ photo.title }}
             </h3>
