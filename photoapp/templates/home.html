@@ -4,67 +4,47 @@
 
 {% block content %}
 
-<div class="max-w-6xl mx-auto px-6 py-12">
+<div class="max-w-6xl mx-auto px-4 py-8">
 
-    <div class="text-center mb-12">
-        <h1 class="text-4xl font-bold">
-            Welcome to PhotoGallery
-        </h1>
+<h2 class="text-2xl font-bold mb-6">
+    Latest Photos
+</h2>
 
-        <p class="text-gray-600 mt-3">
-            Explore and enjoy beautiful photos.
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+    {% for photo in photos %}
+
+        <div class="bg-white rounded-lg shadow p-4">
+
+            <img
+                src="{{ photo.image.url }}"
+                alt="{{ photo.title }}"
+                class="w-full h-48 object-cover rounded"
+            >
+
+            <h3 class="font-semibold text-lg mt-4">
+                {{ photo.title }}
+            </h3>
+
+            <p class="text-gray-600">
+                {{ photo.description }}
+            </p>
+
+            <p class="text-sm text-gray-500 mt-2">
+                Uploaded by {{ photo.user.username }}
+            </p>
+
+        </div>
+
+    {% empty %}
+
+        <p class="text-gray-500">
+            No photos available.
         </p>
-    </div>
 
-    <h2 class="text-2xl font-bold mb-6">
-        Latest Photos
-    </h2>
+    {% endfor %}
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-        <div class="bg-white rounded-lg shadow p-4">
-            <div class="h-48 bg-gray-200 rounded flex items-center justify-center">
-                <span class="text-gray-500">Photo</span>
-            </div>
-
-            <h3 class="font-semibold text-lg mt-4">
-                Nature
-            </h3>
-
-            <p class="text-gray-600">
-                Beautiful nature photo.
-            </p>
-        </div>
-
-        <div class="bg-white rounded-lg shadow p-4">
-            <div class="h-48 bg-gray-200 rounded flex items-center justify-center">
-                <span class="text-gray-500">Photo</span>
-            </div>
-
-            <h3 class="font-semibold text-lg mt-4">
-                Portrait
-            </h3>
-
-            <p class="text-gray-600">
-                A beautiful portrait.
-            </p>
-        </div>
-
-        <div class="bg-white rounded-lg shadow p-4">
-            <div class="h-48 bg-gray-200 rounded flex items-center justify-center">
-                <span class="text-gray-500">Photo</span>
-            </div>
-
-            <h3 class="font-semibold text-lg mt-4">
-                Art
-            </h3>
-
-            <p class="text-gray-600">
-                Creative artwork.
-            </p>
-        </div>
-
-    </div>
+</div>
 
 </div>
 
