@@ -2,6 +2,8 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
+
+from photoapp.forms import PhotoForm
 from .models import Photo, PhotoReaction, Profile
 from django.contrib.auth.decorators import login_required
 
@@ -163,3 +165,22 @@ def react_to_photo(request, id):
             )
 
     return redirect('home')
+
+@login_required
+def upload_photo(request):
+    if request.method == 'POST':
+        form = PhotoForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            photo = form.save(commit=False)
+            photo.user = request.user
+            photo.save()
+
+            return redirect('home')
+
+    else:
+        form = PhotoForm()
+
+    return render(request, 'photoapp/upload_photo.html', {
+        'form': form
+    })

@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}Upload Photo | Photo Gallery{% endblock %}
+
+{% block content %}
+
+<div class="max-w-2xl mx-auto px-4 py-8">
+
+    <div class="bg-white rounded-lg shadow p-6">
+
+        <h2 class="text-2xl font-bold mb-6">
+            Upload a Photo
+        </h2>
+
+        <form method="POST" enctype="multipart/form-data">
+
+            {% csrf_token %}
+
+            <div class="space-y-4">
+
+                {% for field in form %}
+
+                    <div>
+                        <label class="block font-medium mb-2">
+                            {{ field.label }}
+                        </label>
+
+                        {{ field }}
+
+                        {% if field.errors %}
+                            <p class="text-red-500 text-sm mt-1">
+                                {{ field.errors }}
+                            </p>
+                        {% endif %}
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+            <button
+                type="submit"
+                class="mt-6 px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+            >
+                Upload Photo
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}
