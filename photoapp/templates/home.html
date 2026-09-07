@@ -9,6 +9,47 @@
 <h2 class="text-2xl font-bold mb-6">
     Latest Photos
 </h2>
+<div class="mb-6">
+
+    <div class="flex flex-wrap gap-2">
+
+        <a
+            href="{% url 'home' %}"
+            class="px-4 py-2 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300"
+        >
+            All Photos
+        </a>
+
+        <a
+            href="?tag=nature"
+            class="px-4 py-2 rounded-full bg-blue-100 text-blue-700 hover:bg-blue-200"
+        >
+            Nature
+        </a>
+        <a
+            href="?tag=oceanview"
+            class="px-4 py-2 rounded-full bg-blue-100 text-blue-700 hover:bg-blue-200"
+        >
+            Ocean View
+        </a>
+
+        <a
+            href="?tag=sunset"
+            class="px-4 py-2 rounded-full bg-blue-100 text-blue-700 hover:bg-blue-200"
+        >
+            Sunset
+        </a>
+
+        <a
+            href="?tag=beach"
+            class="px-4 py-2 rounded-full bg-blue-100 text-blue-700 hover:bg-blue-200"
+        >
+            Beach
+        </a>
+
+    </div>
+
+</div>
 
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
