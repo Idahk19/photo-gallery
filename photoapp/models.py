@@ -24,3 +24,24 @@ class Photo(models.Model):
 
     def __str__(self):
         return self.title
+class PhotoReaction(models.Model):
+    LIKE = 'like'
+    DISLIKE = 'dislike'
+
+    REACTION_CHOICES = [
+        (LIKE, 'Like'),
+        (DISLIKE, 'Dislike'),
+    ]
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    photo = models.ForeignKey(Photo, on_delete=models.CASCADE)
+    reaction = models.CharField(
+        max_length=10,
+        choices=REACTION_CHOICES
+    )
+
+    class Meta:
+        unique_together = ('user', 'photo')
+
+    def __str__(self):
+        return f"{self.user.username} - {self.photo.title} - {self.reaction}"
