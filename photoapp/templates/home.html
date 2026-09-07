@@ -75,6 +75,41 @@
             <p class="text-sm text-gray-500 mt-2">
                 Uploaded by {{ photo.user.username }}
             </p>
+ <div class="flex items-center gap-3 mt-4">
+
+    <form method="POST" action="{% url 'react_to_photo' photo.id %}">
+        {% csrf_token %}
+        <input type="hidden" name="reaction" value="like">
+
+        <button
+            type="submit"
+            class="px-3 py-2 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200"
+        >
+             Like
+        </button>
+    </form>
+
+    <span class="text-gray-600">
+        {{ photo.like_count }}
+    </span>
+
+    <form method="POST" action="{% url 'react_to_photo' photo.id %}">
+        {% csrf_token %}
+        <input type="hidden" name="reaction" value="dislike">
+
+        <button
+            type="submit"
+            class="px-3 py-2 bg-red-100 text-red-700 rounded-lg hover:bg-red-200"
+        >
+             Dislike
+        </button>
+    </form>
+
+    <span class="text-gray-600">
+        {{ photo.dislike_count }}
+    </span>
+
+</div>
 
         </div>
 
