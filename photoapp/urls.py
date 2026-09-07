@@ -9,4 +9,6 @@ urlpatterns = [
     path('profile/', views.profile, name='profile'),
     path('profile/edit/', views.edit_profile, name='edit_profile'),
     path('photo/<int:id>/', views.photo_detail, name='photo_detail'),
+    path('photo/<int:id>/react/', views.react_to_photo, name='react_to_photo'
+    ),
 ]
