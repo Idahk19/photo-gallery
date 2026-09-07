@@ -2,17 +2,30 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
-from .models import Photo, Profile
+from .models import Photo, PhotoReaction, Profile
 from django.contrib.auth.decorators import login_required
 
 
 def home(request):
-    tag = request.GET.get('tag')
+    tag = request.GET.get('tag', '').strip()
 
     if tag:
-        photos = Photo.objects.filter(tags__icontains=tag).order_by('-uploaded_at')
+        photos = Photo.objects.filter(
+            tags__icontains=tag
+        ).order_by('-uploaded_at')
     else:
         photos = Photo.objects.all().order_by('-uploaded_at')
+
+    for photo in photos:
+        photo.like_count = PhotoReaction.objects.filter(
+            photo=photo,
+            reaction='like'
+        ).count()
+
+        photo.dislike_count = PhotoReaction.objects.filter(
+            photo=photo,
+            reaction='dislike'
+        ).count()
 
     return render(request, 'home.html', {
         'photos': photos,
@@ -117,3 +130,36 @@ def edit_profile(request):
     return render(request, 'edit_profile.html', {
         'profile': profile
     })
+
+@login_required
+def react_to_photo(request, id):
+    photo = get_object_or_404(Photo, id=id)
+
+    if request.method == 'POST':
+        reaction = request.POST.get('reaction')
+
+        if reaction not in ['like', 'dislike']:
+            return redirect('home')
+
+        existing_reaction = PhotoReaction.objects.filter(
+            user=request.user,
+            photo=photo
+        ).first()
+
+        if existing_reaction:
+            if existing_reaction.reaction == reaction:
+                # Remove reaction if user clicks the same button again
+                existing_reaction.delete()
+            else:
+                # Change reaction
+                existing_reaction.reaction = reaction
+                existing_reaction.save()
+        else:
+            # Create new reaction
+            PhotoReaction.objects.create(
+                user=request.user,
+                photo=photo,
+                reaction=reaction
+            )
+
+    return redirect('home')
