@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
@@ -78,6 +78,13 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect('login')
+
+def photo_detail(request, id):
+    photo = get_object_or_404(Photo, id=id)
+
+    return render(request, 'photodetail.html', {
+        'photo': photo
+    })
 
 @login_required
 def profile(request):
