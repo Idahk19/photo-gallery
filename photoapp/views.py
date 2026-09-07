@@ -7,10 +7,16 @@ from django.contrib.auth.decorators import login_required
 
 
 def home(request):
-    photos = Photo.objects.all().order_by('-uploaded_at')
+    tag = request.GET.get('tag')
+
+    if tag:
+        photos = Photo.objects.filter(tags__icontains=tag).order_by('-uploaded_at')
+    else:
+        photos = Photo.objects.all().order_by('-uploaded_at')
 
     return render(request, 'home.html', {
-        'photos': photos
+        'photos': photos,
+        'selected_tag': tag
     })
 
 
