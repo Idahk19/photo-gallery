@@ -181,6 +181,6 @@ def upload_photo(request):
     else:
         form = PhotoForm()
 
-    return render(request, 'upload_photo.html', {
+    return render(request, 'photo_upload.html', {
         'form': form
     })
